@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">Event Checkin</string>
+    <string name="content_description_favorite">favorite icon</string>
+    <string name="search">search</string>
+    <string name="content_description_search">search something</string>
+    <string name="favorite">favorite</string>
+    <string name="more">more</string>
+    <string name="content_description_more">more information</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <!--    drawer-->
+    <string name="toggle_open">open</string>
+    <string name="toggle_close">close</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="user_name">Magaiver</string>
+    <string name="email_user">magaiwer@hotmail.com.br</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="month_select">month</string>
+    <string name="nav_category">Category</string>
+    <string name="nav_balance">balance</string>
+    <string name="nav_account">Account</string>
+
+
+    <!--    activity_transaction_list -->
+    <string name="activity_event_list_title"> Events </string>
+    <string name="category_name">Category Name</string>
+
+    <!--    activity_transaction -->
+    <string name="activity_Event_title"> New Event </string>
+    <string name="fab_content_desc">Action butto to create new transactions</string>
+    <string name="transaction_name">Name</string>
+    <string name="transaction_amount">Amount</string>
+    <string name="event_name">Event Name</string>
+
+</resources>
