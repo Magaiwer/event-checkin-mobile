@@ -1,4 +1,4 @@
-package dev.magaiver.eventcheckin.presentation.ui.event;
+package dev.magaiver.eventcheckin.presentation.ui.activity;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.eventcheckin.R;
 import com.google.android.material.appbar.MaterialToolbar;
+
+import java.util.Objects;
 
 import dev.magaiver.eventcheckin.presentation.ui.fragment.EventFragment;
 
@@ -34,12 +36,11 @@ public class EventListActivity extends AppCompatActivity {
     private void initComponents() {
         materialToolbar = findViewById(R.id.materialToolbar);
         setSupportActionBar(materialToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         txtViewTitle = findViewById(R.id.txtToolbarTitle);
         txtViewTitle.setText(getString(R.string.activity_event_list_title));
-
 
         EventFragment eventFragment = new EventFragment();
         getSupportFragmentManager()

@@ -1,38 +1,29 @@
 package dev.magaiver.eventcheckin.domain.model;
 
-public class Subscription {
 
-    private String id;
-    private String eventId;
-    private String userEmail;
+import androidx.room.Entity;
 
-    public Subscription(String id, String eventId, String userEmail) {
-        this.id = id;
+import org.jetbrains.annotations.NotNull;
+
+import java.io.Serializable;
+
+@Entity(primaryKeys = {"eventId", "userEmail"})
+public class Subscription implements Serializable {
+
+    @NotNull private String eventId;
+    @NotNull private String userEmail;
+
+    public Subscription(@NotNull String eventId, @NotNull String userEmail) {
         this.eventId = eventId;
         this.userEmail = userEmail;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getEventId() {
         return eventId;
     }
 
-    public void setEventId(String eventId) {
-        this.eventId = eventId;
-    }
-
     public String getUserEmail() {
         return userEmail;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
 }

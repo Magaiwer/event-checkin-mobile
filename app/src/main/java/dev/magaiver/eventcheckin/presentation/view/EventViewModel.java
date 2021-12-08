@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
@@ -33,5 +34,9 @@ public class EventViewModel extends AndroidViewModel {
 
     public List<Event> findAll() {
         return eventRepository.findAll();
+    }
+
+    public LiveData<List<Event>> findAllLiveData() {
+        return eventRepository.findAllLiveData();
     }
 }

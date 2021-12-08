@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="dev.magaiver.eventcheckin.presentation.ui.event.EventListActivity">
+    tools:context="dev.magaiver.eventcheckin.presentation.ui.activity.EventListActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarTransactions"

@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.eventcheckin.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import dev.magaiver.eventcheckin.domain.model.Event;
@@ -37,15 +36,10 @@ public class EventFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-         eventViewModel = new ViewModelProvider(this).get(EventViewModel.class);
-    }
-
-    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadEventList();
+        eventViewModel = new ViewModelProvider(this).get(EventViewModel.class);
+        eventViewModel.findAllLiveData().observe(this, events -> loadEventList());
     }
 
     @Nullable
@@ -55,17 +49,17 @@ public class EventFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_event_list_item, container, false);
         recyclerEvent = view.findViewById(R.id.recyclerViewEvent);
         recyclerEvent.setLayoutManager(new LinearLayoutManager(requireContext()));
+
         return view;
     }
 
-    private void loadEventList() {
+    private synchronized void loadEventList() {
         new Thread() {
             @Override
             public void run() {
 
-                List<Event> events = new ArrayList<>();
-                events = eventViewModel.findAll();
-                EventAdapter eventAdapter = new EventAdapter(events , requireContext());
+                List<Event> events = eventViewModel.findAll();
+                EventAdapter eventAdapter = new EventAdapter(events, requireContext());
 
                 new Handler(Looper.getMainLooper()).post(() -> {
                     recyclerEvent.setAdapter(eventAdapter);

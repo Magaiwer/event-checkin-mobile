@@ -21,9 +21,13 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="Theme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-  <!--  MAKE A DIVIDER
+    <style name="Theme.SaveMyMoney.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.SaveMyMoney.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!--  MAKE A DIVIDER
   <style name="Divider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>

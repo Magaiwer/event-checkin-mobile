@@ -40,5 +40,20 @@
     <string name="transaction_name">Name</string>
     <string name="transaction_amount">Amount</string>
     <string name="event_name">Event Name</string>
+    <string name="event_description">Description event</string>
+    <string name="nav_event">Events</string>
+    <string name="synchronize">Synchronize</string>
+    <string name="Checkin_Title">Checkin</string>
+    <string name="txtBtnSend">Send</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="eventos_logo">eventos</string>
 
 </resources>

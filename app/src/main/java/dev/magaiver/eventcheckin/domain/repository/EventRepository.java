@@ -2,6 +2,9 @@ package dev.magaiver.eventcheckin.domain.repository;
 
 import android.app.Application;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import java.util.List;
 
 import dev.magaiver.eventcheckin.core.dao.EventDao;
@@ -10,7 +13,7 @@ import dev.magaiver.eventcheckin.domain.model.Event;
 
 public class EventRepository {
 
-    private EventDao eventDao;
+    private final EventDao eventDao;
 
     public EventRepository(Application application) {
         AppDatabase db = AppDatabase.getConnection(application);
@@ -22,7 +25,7 @@ public class EventRepository {
     }
 
     public void deleteAll() {
-        AppDatabase.getDbWriteExecutor().execute( () -> eventDao.deleteAll());
+        AppDatabase.getDbWriteExecutor().execute(eventDao::deleteAll);
     }
 
     public Event findById(final String id) {
@@ -31,6 +34,10 @@ public class EventRepository {
 
     public List<Event> findAll() {
         return this.eventDao.findAll();
+    }
+
+    public LiveData<List<Event>> findAllLiveData() {
+        return this.eventDao.findAllLiveData();
     }
 }
 

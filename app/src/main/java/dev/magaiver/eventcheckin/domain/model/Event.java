@@ -8,16 +8,23 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import dev.magaiver.eventcheckin.api.converter.LocalDateDeserializer;
+import dev.magaiver.eventcheckin.api.converter.LocalDateSerializer;
 import dev.magaiver.eventcheckin.domain.model.converter.LocalDateTimeConverter;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 @Entity
-public class Event {
+public class Event implements Serializable {
 
     @PrimaryKey
     @NonNull
@@ -30,15 +37,18 @@ public class Event {
     private LocalDateTime dateTime;
 
     @TypeConverters(LocalDateTimeConverter.class)
-    private LocalDateTime dateClose;
+    private LocalDateTime dateTimeClose;
 
-    public Event(@NotNull String id, String name, String description, int capacity, LocalDateTime dateTime, LocalDateTime dateClose) {
+    public Event(@NotNull String id, String name, String description, int capacity, LocalDateTime dateTime, LocalDateTime dateTimeClose) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.capacity = capacity;
         this.dateTime = dateTime;
-        this.dateClose = dateClose;
+        this.dateTimeClose = dateTimeClose;
+    }
+
+    public Event() {
     }
 
     public String getId() {
@@ -81,12 +91,12 @@ public class Event {
         this.dateTime = dateTime;
     }
 
-    public LocalDateTime getDateClose() {
-        return dateClose;
+    public LocalDateTime getDateTimeClose() {
+        return dateTimeClose;
     }
 
-    public void setDateClose(LocalDateTime dateClose) {
-        this.dateClose = dateClose;
+    public void setDateTimeClose(LocalDateTime dateTimeClose) {
+        this.dateTimeClose = dateTimeClose;
     }
 
     public String dateTimeStr() {
@@ -96,10 +106,10 @@ public class Event {
 
     public String dateCloseStr() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        return this.dateClose.format(formatter);
+        return this.dateTimeClose.format(formatter);
     }
 
     public String status() {
-        return LocalDateTime.now().isBefore(this.dateTime) ? "OPEN" : "CLOSE";
+        return LocalDateTime.now().isBefore(this.dateTimeClose) ? "OPEN" : "CLOSE";
     }
 }

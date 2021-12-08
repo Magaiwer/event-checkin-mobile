@@ -1,5 +1,6 @@
 package dev.magaiver.eventcheckin.core.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -16,6 +17,9 @@ public interface EventDao {
 
     @Query("select * from  event")
     List<Event> findAll();
+
+    @Query("select * from  event")
+    LiveData<List<Event>> findAllLiveData();
 
     @Query("select * from event where id = :id ")
     Event findById(String id);
