@@ -1,2 +1,1 @@
-# savemymoney
 # event-checkin-mobile
