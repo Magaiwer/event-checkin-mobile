@@ -8,6 +8,8 @@
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 .DS_Store
+app/google-services.json
+app/.idea/*
 /build
 /captures
 .externalNativeBuild
