@@ -2,6 +2,7 @@ package dev.magaiver.eventcheckin;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -39,6 +41,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
@@ -71,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         initListener();
 
     }
+
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -131,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     });
 
                     if (response.code() == StatusCode.OK.getValue()) {
-                        eventRepository.deleteAll();
+                        //eventRepository.deleteAll();
                         eventRepository.insertAll(events);
 
                         createEventListIntent();

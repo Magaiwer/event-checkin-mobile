@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.SaveMyMoney" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.EventCheckin" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -16,16 +16,16 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
-    <style name="Theme.SaveMyMoney.NoActionBar">
+    <style name="Theme.EventCheckin.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
     <style name="Theme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="Theme.SaveMyMoney.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.EventCheckin.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="Theme.SaveMyMoney.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.EventCheckin.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <!--  MAKE A DIVIDER
   <style name="Divider">

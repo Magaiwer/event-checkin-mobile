@@ -2,18 +2,17 @@ package dev.magaiver.eventcheckin.presentation.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.eventcheckin.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.appcompat.app.AppCompatDelegate;
 
-import android.os.Handler;
-import android.view.View;
+import com.eventcheckin.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import dev.magaiver.eventcheckin.MainActivity;
+import dev.magaiver.eventcheckin.presentation.ui.login.LoginActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -21,13 +20,21 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        Intent intent = new Intent(this, MainActivity.class);
 
-        new Handler().postDelayed( ()-> {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        new Handler().postDelayed(() -> {
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            Intent intent;
+            if (currentUser == null) {
+                intent = new Intent(this, LoginActivity.class);
+            } else {
+                intent = new Intent(this, MainActivity.class);
+            }
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
-            finish();
-        }, 3000);
+        }, 6000);
 
     }
 }

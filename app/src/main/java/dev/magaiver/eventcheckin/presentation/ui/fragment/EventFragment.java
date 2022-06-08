@@ -54,7 +54,7 @@ public class EventFragment extends Fragment {
     }
 
     private synchronized void loadEventList() {
-        new Thread() {
+            new Thread() {
             @Override
             public void run() {
 

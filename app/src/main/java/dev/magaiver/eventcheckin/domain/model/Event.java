@@ -8,18 +8,12 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import dev.magaiver.eventcheckin.api.converter.LocalDateDeserializer;
-import dev.magaiver.eventcheckin.api.converter.LocalDateSerializer;
 import dev.magaiver.eventcheckin.domain.model.converter.LocalDateTimeConverter;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
