@@ -15,7 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
-        android:layout_height="149dp">
+        android:layout_height="145dp">
 
 
         <TextView
@@ -23,21 +23,22 @@
             android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:layout_gravity="end"
-            android:layout_marginStart="49dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="15dp"
             android:text="21/10/2020 08:00"
             android:textAlignment="gravity"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtDate" />
+            app:layout_constraintTop_toBottomOf="@+id/txtDate"
+            app:layout_constraintVertical_bias="0.292" />
 
         <TextView
             android:id="@+id/txtDate"
             android:layout_width="200dp"
             android:layout_height="18dp"
             android:layout_gravity="end"
-            android:layout_marginStart="49dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="11dp"
             android:text="21/10/2020 08:00"
             android:textAlignment="gravity"
@@ -49,34 +50,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="23dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="5dp"
             android:text="OPEN"
             android:textAlignment="gravity"
+            app:layout_constraintBottom_toTopOf="@+id/swSubscribe"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtDescription" />
 
         <TextView
-            android:id="@+id/txtCapacity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="23dp"
-            android:text="150/300"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtStatus" />
-
-        <TextView
             android:id="@+id/txtEventName"
-            android:layout_width="321dp"
-            android:layout_height="20dp"
+            android:layout_width="324dp"
+            android:layout_height="31dp"
             android:layout_marginStart="49dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="25dp"
-            android:layout_marginBottom="7dp"
             android:text="@string/event_name"
+            android:textAlignment="textStart"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            app:layout_constraintBottom_toTopOf="@+id/txtDescription"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -84,27 +78,42 @@
 
         <TextView
             android:id="@+id/txtDescription"
-            android:layout_width="321dp"
+            android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="25dp"
-            android:lines="2"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="5dp"
+            android:lines="3"
             android:text="@string/event_description"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtEventName" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="53dp"
-            android:layout_marginBottom="60dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintEnd_toStartOf="@+id/txtEventName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_calendar_today_black_24dp" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/swSubscribe"
+            android:layout_width="117dp"
+            android:layout_height="21dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/sw_on"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textOff="@string/sw_off"
+            android:textOn="@string/sw_on"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,12 +11,15 @@ import java.util.concurrent.Executors;
 
 import dev.magaiver.eventcheckin.core.dao.EventDao;
 import dev.magaiver.eventcheckin.core.dao.SubscriptionDao;
+import dev.magaiver.eventcheckin.core.dao.UserDao;
 import dev.magaiver.eventcheckin.domain.model.Event;
 import dev.magaiver.eventcheckin.domain.model.Subscription;
+import dev.magaiver.eventcheckin.domain.model.User;
 
-@Database(entities = {Event.class, Subscription.class}, version = 1, exportSchema = false)
+@Database(entities = {Event.class, Subscription.class, User.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract EventDao eventDao();
+    public abstract UserDao userDao();
     public abstract SubscriptionDao subscriptionDao();
 
     private static AppDatabase INSTANCE;
@@ -26,7 +29,7 @@ public abstract class AppDatabase extends RoomDatabase {
         if (INSTANCE == null) {
             synchronized (AppDatabase.class) {
                 INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                        AppDatabase.class, "event.db").build();
+                        AppDatabase.class, "event.db").allowMainThreadQueries().build();
             }
         }
         return INSTANCE;

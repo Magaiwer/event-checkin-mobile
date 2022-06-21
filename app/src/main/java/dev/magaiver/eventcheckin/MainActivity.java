@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -15,31 +16,22 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.eventcheckin.R;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
+import com.google.firebase.auth.FirebaseAuth;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.List;
 import java.util.Objects;
 
-import dev.magaiver.eventcheckin.api.ApiTemplate;
-import dev.magaiver.eventcheckin.api.Routes;
-import dev.magaiver.eventcheckin.api.StatusCode;
-import dev.magaiver.eventcheckin.domain.model.Event;
-import dev.magaiver.eventcheckin.domain.model.Subscription;
-import dev.magaiver.eventcheckin.domain.repository.EventRepository;
-import dev.magaiver.eventcheckin.domain.repository.SubscriptionRepository;
+import dev.magaiver.eventcheckin.domain.model.LoggedInUser;
+import dev.magaiver.eventcheckin.domain.repository.LoginRepository;
 import dev.magaiver.eventcheckin.presentation.ui.activity.EventListActivity;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
+import dev.magaiver.eventcheckin.presentation.ui.login.LoginActivity;
+import dev.magaiver.eventcheckin.presentation.view.EventViewModel;
+import dev.magaiver.eventcheckin.presentation.view.SubscriptionViewModel;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -48,6 +40,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawerLayout;
     private Button btnSynchronize;
     private LinearProgressIndicator spinner;
+    private EventViewModel eventViewModel;
+    private SubscriptionViewModel subscriptionViewModel;
+    private TextView txtUserName;
+    private TextView txtUserEmail;
+    private LoginRepository loginRepository;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,24 +65,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.navigationView);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+        loginRepository = LoginRepository.getInstance(getApplication());
+        LoggedInUser loggedInUser = loginRepository.getUser();
+
+        txtUserName = navigationView.getHeaderView(0).findViewById(R.id.txt_user_name);
+        txtUserEmail = navigationView.getHeaderView(0).findViewById(R.id.txt_user_email);
+        if (loggedInUser != null) {
+            txtUserName.setText(loggedInUser.getDisplayName());
+            txtUserEmail.setText(loggedInUser.getEmail());
+        }
+
         spinner = findViewById(R.id.progressIndicator);
         spinner.setVisibility(View.GONE);
 
         btnSynchronize = findViewById(R.id.btnSynchronize);
+        eventViewModel = new ViewModelProvider(this).get(EventViewModel.class);
+        subscriptionViewModel = new ViewModelProvider(this).get(SubscriptionViewModel.class);
         initListener();
 
     }
-
 
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.nav_home:
-                break;
             case R.id.nav_event:
-                Intent intent = new Intent(this, EventListActivity.class);
+                createEventListIntent();
+                break;
+            case R.id.nav_logout:
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -106,83 +119,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         btnSynchronize.setOnClickListener(view -> {
             spinner.setVisibility(View.VISIBLE);
 
-            new Handler().postDelayed( ()-> {
-                syncCheckIns();
-                syncEvents();
+            new Handler().postDelayed(() -> {
+                subscriptionViewModel.syncCheckInsServer();
+                eventViewModel.syncEventsServer();
+                spinner.setVisibility(View.GONE);
             }, 3000);
 
         });
     }
 
-    private  void syncEvents() {
-        EventRepository eventRepository = new EventRepository(getApplication());
-        try {
-
-            ApiTemplate.get(Routes.URL_EVENT, "", "").enqueue(new Callback() {
-                @Override
-                public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                    System.out.println(e.getMessage());
-                    createEventListIntent();
-                }
-
-                @Override
-                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                    List<Event> events = ApiTemplate.getObjectMapper().readValue(Objects.requireNonNull(response.body()).string(), new TypeReference<List<Event>>() {
-                        @Override
-                        public Type getType() {
-                            return super.getType();
-                        }
-                    });
-
-                    if (response.code() == StatusCode.OK.getValue()) {
-                        //eventRepository.deleteAll();
-                        eventRepository.insertAll(events);
-
-                        createEventListIntent();
-                    }
-                }
-            });
-
-            spinner.setVisibility(View.GONE);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    private synchronized void syncCheckIns() {
-
-        new Thread(() -> {
-            SubscriptionRepository subscriptionRepository = new SubscriptionRepository(getApplication());
-            List<Subscription> subscriptions = subscriptionRepository.findAll();
-
-            if (!subscriptions.isEmpty()) {
-
-                for (Subscription sub : subscriptions) {
-
-                    try {
-                        ApiTemplate.post(Routes.URL_CHECK_IN, sub, "").enqueue(new Callback() {
-                            @Override
-                            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                                System.out.println(e.getMessage());
-                            }
-
-                            @Override
-                            public void onResponse(@NotNull Call call, @NotNull Response response)  {
-
-                                if (response.code() == StatusCode.OK.getValue() || response.code() == StatusCode.BAD_REQUEST.getValue() ) {
-                                    subscriptionRepository.delete(sub);
-                                }
-                            }
-                        });
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }).start();
-    }
 
     private void createEventListIntent() {
         Intent intent = new Intent(getApplicationContext(), EventListActivity.class);

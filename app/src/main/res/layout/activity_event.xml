@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="dev.magaiver.eventcheckin.presentation.ui.activity.CheckInActivity">
 
@@ -11,7 +11,8 @@
         android:id="@+id/appBarTransactions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        tools:ignore="MissingConstraints">
 
         <include
             layout="@layout/toolbar_layout"
@@ -20,38 +21,101 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txtlayout"
+    <Button
+        android:id="@+id/btnSend"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="292dp"
+        android:text="@string/btnQrcode"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/txtBarcode"
+        app:layout_constraintTop_toBottomOf="@+id/txtBarcode"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/txtEvent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
-        android:hint="@string/transaction_name">
+        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="9dp"
+        android:text="TextView"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarTransactions" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtUserEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <TextView
+        android:id="@+id/txtDescriptionEvent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="9dp"
+        android:lines="3"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEvent" />
 
-        <Button
-            android:id="@+id/btnSend"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="10dp"
-            android:text="@string/txtBtnSend"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/txtDateEvent"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtDescriptionEvent" />
+
+    <TextView
+        android:id="@+id/txtDtClose"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="62dp"
+        android:layout_marginEnd="8dp"
+        android:text="TextView"
+        android:textAlignment="textEnd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtDescriptionEvent" />
+
+    <TextView
+        android:id="@+id/txtBarcode"
+        android:layout_width="0dp"
+        android:layout_height="19dp"
+        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="73dp"
+        android:textAlignment="textStart"
+        app:layout_constraintBottom_toTopOf="@+id/btnSend"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtLocation"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/txtLocation"
+        android:layout_width="match_parent"
+        android:layout_height="19dp"
+        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="10dp"
+        android:text="TextView"
+        android:textAlignment="textStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtDateEvent"
+        tools:ignore="MissingConstraints" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

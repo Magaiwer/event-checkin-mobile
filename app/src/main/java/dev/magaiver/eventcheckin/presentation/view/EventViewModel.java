@@ -13,7 +13,7 @@ import dev.magaiver.eventcheckin.domain.repository.EventRepository;
 
 public class EventViewModel extends AndroidViewModel {
 
-    private EventRepository eventRepository;
+    private final EventRepository eventRepository;
 
     public EventViewModel(@NonNull Application application) {
         super(application);
@@ -38,5 +38,9 @@ public class EventViewModel extends AndroidViewModel {
 
     public LiveData<List<Event>> findAllLiveData() {
         return eventRepository.findAllLiveData();
+    }
+
+    public void syncEventsServer() {
+        eventRepository.syncEvents();
     }
 }

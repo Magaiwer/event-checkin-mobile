@@ -2,6 +2,7 @@ package dev.magaiver.eventcheckin.presentation.ui.login;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProvider;
@@ -22,7 +24,7 @@ import com.eventcheckin.databinding.ActivityLoginBinding;
 
 import dev.magaiver.eventcheckin.MainActivity;
 
-
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;

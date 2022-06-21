@@ -12,13 +12,10 @@
             android:title="@string/nav_event"
             android:icon="@drawable/ic_calendar_today_black_24dp"/>
 
-<!--        <item android:id="@+id/nav_account"
-            android:title="@string/nav_account"
-            android:icon="@drawable/ic_account_balance_wallet_black_24dp"/>
+        <item android:id="@+id/nav_logout"
+            android:title="@string/logout"
+            android:icon="@drawable/ic_logout"/>
 
-        <item android:id="@+id/nav_category"
-            android:title="@string/nav_category"
-            android:icon="@drawable/ic_view_module_black_24dp"/>-->
     </group>
 
 </menu>

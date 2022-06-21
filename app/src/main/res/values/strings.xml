@@ -74,6 +74,22 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="sw_off">Cancel</string>
+    <string name="sw_on">Subscribe</string>
+    <string name="logout">Logout</string>
+    <string name="btnQrcode">Check-in</string>
+
+    <string name="barcode_result" translatable="false">Barcode detected.\n%1$s</string>
+    <string name="error_scanner_cancelled" translatable="false">Code scanner is cancelled.</string>
+    <string name="error_camera_permission_not_granted" translatable="false">Camera permission is not granted.</string>
+    <string name="error_app_name_unavailable" translatable="false">App name is not set.</string>
+    <string name="error_default_message" translatable="false">Failed to scan code: %1$s</string>
+    <string name="txt_desc_event">Description \n%1$s</string>
+    <string name="txt_label_date">Date  \n%1$s</string>
+    <string name="txt_label_date_close">Subscription until  \n%1$s</string>
+    <string name="txt_location">Location %1$s</string>
+    <string name="error_checkin_location">You current location differ event localization</string>
+    <string name="checkin_succefully">Check In with successfully</string>
 
 
 </resources>

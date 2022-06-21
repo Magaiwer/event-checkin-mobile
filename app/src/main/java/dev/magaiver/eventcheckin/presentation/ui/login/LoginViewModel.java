@@ -11,18 +11,22 @@ import com.eventcheckin.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 import dev.magaiver.eventcheckin.domain.model.LoggedInUser;
+import dev.magaiver.eventcheckin.domain.model.User;
 import dev.magaiver.eventcheckin.domain.repository.LoginRepository;
+import dev.magaiver.eventcheckin.domain.repository.UserRepository;
 
 public class LoginViewModel extends AndroidViewModel {
 
     private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
     private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
     private final LoginRepository loginRepository;
+    private UserRepository userRepository;
     private FirebaseAuth mAuth;
 
     public LoginViewModel(Application application) {
         super(application);
         this.loginRepository = LoginRepository.getInstance(application);
+        userRepository = new UserRepository(application);
         mAuth = FirebaseAuth.getInstance();
     }
 
@@ -37,12 +41,23 @@ public class LoginViewModel extends AndroidViewModel {
     public void login(String username, String password) {
         mAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                loginRepository.setLoggedInUser(new LoggedInUser(task.getResult().getUser().getUid(), username));
-                loginResult.setValue(new LoginResult(new LoggedInUserView(username)));
+                String uuid = task.getResult().getUser().getUid();
+                searchUserDb(uuid);
             } else {
                 loginResult.setValue(new LoginResult(task.getException().getMessage()));
             }
         });
+    }
+
+    public void searchUserDb(String uuid) {
+        new Thread(() -> {
+            User user = userRepository.findById(uuid);
+            if (user != null) {
+                loginRepository.setLoggedInUser(new LoggedInUser(user.getUuid(), user.getName(), user.getEmail()));
+                loginResult.postValue(new LoginResult(new LoggedInUserView(user.getEmail())));
+            }
+        }).start();
+
     }
 
     public void loginDataChanged(String username, String password) {

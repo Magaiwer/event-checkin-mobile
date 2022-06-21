@@ -2,9 +2,12 @@ package dev.magaiver.eventcheckin.domain.model;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+
+import kotlin.jvm.Transient;
 
 @Entity
 public class User implements Serializable {
@@ -14,6 +17,8 @@ public class User implements Serializable {
     private String uuid;
     private String name;
     private String email;
+    @Ignore
+    private String password;
 
     public User(@NonNull String uuid, String name, String email) {
         this.uuid = uuid;
@@ -44,5 +49,13 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

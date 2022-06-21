@@ -3,18 +3,27 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.196875" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2635" />
         <entry key="app/src/main/res/drawable/ic_calendar_today_black_24dp.xml" value="0.178" />
         <entry key="app/src/main/res/drawable/ic_menu_24dp.xml" value="0.2635" />
         <entry key="app/src/main/res/drawable/ic_search_24dp.xml" value="0.2635" />
         <entry key="app/src/main/res/drawable/ic_view_module_black_24dp.xml" value="0.2635" />
         <entry key="app/src/main/res/drawable/logo_univates.xml" value="0.2635" />
-        <entry key="app/src/main/res/layout/activity_event.xml" value="0.34791666666666665" />
-        <entry key="app/src/main/res/layout/activity_event_list_item.xml" value="0.34791666666666665" />
+        <entry key="app/src/main/res/layout/activity_event.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/activity_event_list.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_event_list_item.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.26313405797101447" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/content_splash.xml" value="0.34791666666666665" />
+        <entry key="app/src/main/res/layout/fragment_event_list_item.xml" value="0.16927083333333334" />
+        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/menu_header_navigation_drawer.xml" value="0.16927083333333334" />
+        <entry key="app/src/main/res/layout/menu_navigation_view.xml" value="0.34791666666666665" />
+        <entry key="app/src/main/res/menu/menu_drawer.xml" value="0.5" />
       </map>
     </option>
   </component>

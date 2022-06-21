@@ -1,20 +1,24 @@
 package dev.magaiver.eventcheckin.presentation.ui.login;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.eventcheckin.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 import dev.magaiver.eventcheckin.domain.model.User;
+import dev.magaiver.eventcheckin.presentation.view.UserViewModel;
 
-
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText edEmail;
@@ -23,13 +27,13 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText edConfirmPassword;
     private Button btnRegister;
     private FirebaseAuth mAuth;
-    /*   private UserViewModel userViewModel;*/
+    private UserViewModel userViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        /*        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);*/
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         initComponents();
         initListeners();
     }
@@ -87,7 +91,8 @@ public class RegisterActivity extends AppCompatActivity {
             if (task.isSuccessful()) {
                 Toast.makeText(this, R.string.user_registrated_succ, Toast.LENGTH_LONG).show();
                 User user = new User(task.getResult().getUser().getUid(), name, email);
-                //userViewModel.createUserServer(user);
+                user.setPassword(password);
+                userViewModel.createUserServer(user);
                 Intent intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
             } else {

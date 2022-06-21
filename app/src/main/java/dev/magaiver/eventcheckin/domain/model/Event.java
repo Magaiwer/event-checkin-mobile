@@ -5,12 +5,15 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -25,7 +28,11 @@ public class Event implements Serializable {
     private String id;
     private String name;
     private String description;
+    private String location;
     private int capacity;
+
+    @Ignore
+    private boolean subscribed;
 
     @TypeConverters(LocalDateTimeConverter.class)
     private LocalDateTime dateTime;
@@ -33,16 +40,25 @@ public class Event implements Serializable {
     @TypeConverters(LocalDateTimeConverter.class)
     private LocalDateTime dateTimeClose;
 
-    public Event(@NotNull String id, String name, String description, int capacity, LocalDateTime dateTime, LocalDateTime dateTimeClose) {
+    public Event(@NotNull String id, String name, String description, int capacity, LocalDateTime dateTime, LocalDateTime dateTimeClose, String location) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.capacity = capacity;
         this.dateTime = dateTime;
         this.dateTimeClose = dateTimeClose;
+        this.location = location;
     }
 
     public Event() {
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getId() {
@@ -93,6 +109,14 @@ public class Event implements Serializable {
         this.dateTimeClose = dateTimeClose;
     }
 
+    public boolean isSubscribed() {
+        return subscribed;
+    }
+
+    public void setSubscribed(boolean subscribed) {
+        this.subscribed = subscribed;
+    }
+
     public String dateTimeStr() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return this.dateTime.format(formatter);
@@ -104,6 +128,28 @@ public class Event implements Serializable {
     }
 
     public String status() {
-        return LocalDateTime.now().isBefore(this.dateTimeClose) ? "OPEN" : "CLOSE";
+        return isOpen() ? "OPEN" : "CLOSE";
+    }
+
+    public boolean isOpen() {
+        return LocalDateTime.now().isBefore(this.dateTimeClose);
+    }
+
+    public String getLatitude() {
+        return this.location != null ? this.location.split(",")[0]:"";
+    }
+
+    public String getLongitude() {
+        return this.location != null ? this.location.split(",")[1]:"";
+    }
+
+    public boolean matchLatitude(Double lat) {
+        BigDecimal near = new BigDecimal(lat).setScale(3, RoundingMode.DOWN);
+        return getLatitude().startsWith(String.valueOf(near));
+    }
+
+    public boolean matchLongitude(Double longi) {
+        BigDecimal near = new BigDecimal(longi).setScale(3, RoundingMode.DOWN);
+        return getLatitude().startsWith(String.valueOf(near));
     }
 }

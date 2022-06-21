@@ -11,26 +11,29 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eventcheckin.R;
 
+import java.util.List;
+
 import dev.magaiver.eventcheckin.domain.model.Event;
 import dev.magaiver.eventcheckin.presentation.ui.activity.CheckInActivity;
-
-import java.util.List;
+import dev.magaiver.eventcheckin.presentation.ui.listener.SwitchChangeListener;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
 
     private final List<Event> events;
     private final Context context;
+    private static SwitchChangeListener switchChangeListener;
 
-
-    public EventAdapter(List<Event> events, Context context) {
+    public EventAdapter(List<Event> events, Context context, SwitchChangeListener changeListener) {
         this.events = events;
         this.context = context;
+        switchChangeListener = changeListener;
     }
 
     @NonNull
@@ -49,13 +52,21 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         holder.txtDateClose.setText(String.format("Subscription until: %s", events.get(position).dateCloseStr()));
         holder.txtStatus.setText(events.get(position).status());
 //        holder.txtCapacity.setText(events.get(position).getCapacity());
+        String eventId = events.get(position).getId();
         holder.imageViewEvent.setImageResource(R.drawable.ic_calendar_today_black_24dp);
+        holder.swSubscribe.setEnabled(events.get(position).isOpen());
+        holder.swSubscribe.setChecked(events.get(position).isSubscribed());
 
         holder.cardView.setOnClickListener(view -> {
             Intent intent = new Intent(view.getContext(), CheckInActivity.class);
-            intent.putExtra("eventId", events.get(position).getId());
+            intent.putExtra("eventId", eventId);
             view.getContext().startActivity(intent);
         });
+
+        holder.swSubscribe.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            switchChangeListener.switchChangeListener(events.get(position), isChecked);
+        });
+
     }
 
     @Override
@@ -73,6 +84,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         TextView txtCapacity;
         ImageView imageViewEvent;
         CardView cardView;
+        SwitchCompat swSubscribe;
 
         public EventViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -81,10 +93,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             txtEventDescription = itemView.findViewById(R.id.txtDescription);
             txtDate = itemView.findViewById(R.id.txtDate);
             txtDateClose = itemView.findViewById(R.id.txtDateClose);
-            txtCapacity = itemView.findViewById(R.id.txtCapacity);
+            //txtCapacity = itemView.findViewById(R.id.txtCapacity);
             imageViewEvent = itemView.findViewById(R.id.imageView);
             cardView = itemView.findViewById(R.id.cardViewItem);
-
+            swSubscribe = itemView.findViewById(R.id.swSubscribe);
         }
     }
 }
