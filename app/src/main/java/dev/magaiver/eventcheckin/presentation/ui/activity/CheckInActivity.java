@@ -96,7 +96,7 @@ public class CheckInActivity extends AppCompatActivity {
     }
 
     @SuppressLint("MissingPermission")
-    private void initListeners() {
+    private void initListeners() {+
         btnCheckin.setOnClickListener(v -> {
             subscription = new Subscription(event.getId(), loggedInUser.getEmail(), StatusSub.PRESENT.name());
 
@@ -106,9 +106,11 @@ public class CheckInActivity extends AppCompatActivity {
                     .addOnSuccessListener(barcode -> {
                         String idEvent = barcode.getDisplayValue();
                         barcodeResultView.setText(idEvent);
-                        if (isSameEvent(idEvent) && isEventLocation()) {
+                        if (isSameEvent(idEvent)) {
                             sbViewModel.postCheckIn(subscription);
+                            eventViewModel.syncEventsServer();
                             showToast(getString(R.string.checkin_succefully));
+                            finish();
                         } else {
                             showToast(getString(R.string.error_checkin_location));
                         }
@@ -175,8 +177,8 @@ public class CheckInActivity extends AppCompatActivity {
 
     private synchronized boolean enableCheckInIf() {
         return isEventDay()
-                && event.isSubscribed()
-                && isEventLocation();
+                && event.isSubscribed();
+                //&& isEventLocation();
     }
 
     private synchronized void loadEvent(String eventId) {

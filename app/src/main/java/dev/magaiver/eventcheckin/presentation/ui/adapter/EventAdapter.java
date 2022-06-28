@@ -66,7 +66,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         holder.swSubscribe.setOnCheckedChangeListener((compoundButton, isChecked) -> {
             switchChangeListener.switchChangeListener(events.get(position), isChecked);
         });
-
     }
 
     @Override

@@ -133,9 +133,11 @@ public class SubscriptionRepository {
                     if (response.code() == StatusCode.BAD_REQUEST.getValue()) {
                         ErrorMessage errorMessage = ApiTemplate.getObjectMapper().readValue(Objects.requireNonNull(response.body()).string(), ErrorMessage.class);
                         Log.d("Check In", errorMessage.userMessage);
-                    } else if (response.code() == StatusCode.OK.getValue()) {
+                    } else if (response.code() == StatusCode.CREATED.getValue()) {
                         Log.d("Check In", "Check in OK");
-                        insert(sub);
+                        new Thread(() -> {
+                            insert(sub);
+                        }).start();
 
                     }
                 }

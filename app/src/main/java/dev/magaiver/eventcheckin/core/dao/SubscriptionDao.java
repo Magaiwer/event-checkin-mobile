@@ -21,7 +21,7 @@ public interface SubscriptionDao {
     @Query("select * from  subscription")
     LiveData<List<Subscription>> findAllLiveData();
 
-    @Query("select * from subscription where eventId = :eventId and status = 'ENABLED' ")
+    @Query("select * from subscription where eventId = :eventId and (status = 'ENABLED' or status = 'PRESENT') ")
     Subscription findById(String eventId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

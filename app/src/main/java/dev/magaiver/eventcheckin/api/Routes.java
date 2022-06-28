@@ -4,7 +4,7 @@ public class Routes {
 
     public static final String URL_BASE = "http://192.168.0.18:5005/gateway";
     public static final String URL_EVENT = "/subscription/v1/event/";
-    public static final String URL_CHECK_IN = "/subscription/v1/event/";
+    public static final String URL_CHECK_IN = "/subscription/v1/event/checkin";
     public static final String URL_USER = "/user-service/v1/user";
     public static final String URL_SUBSCRIBE = "/subscription/v1/subscription";
     public static final String URL_CANCEL_SUB = "/subscription/v1/subscription/cancel";

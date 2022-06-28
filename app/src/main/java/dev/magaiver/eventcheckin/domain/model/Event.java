@@ -150,6 +150,6 @@ public class Event implements Serializable {
 
     public boolean matchLongitude(Double longi) {
         BigDecimal near = new BigDecimal(longi).setScale(3, RoundingMode.DOWN);
-        return getLatitude().startsWith(String.valueOf(near));
+        return getLongitude().startsWith(String.valueOf(near));
     }
 }
